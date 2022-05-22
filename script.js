@@ -9,11 +9,12 @@ class Book{
 
 //UI Class : Handle UI Tasks
 class UI {
+    //Method 1 : To Display All Books
     static displayBooks(){
     const books = Store.getBooks();
     books.forEach((book) => UI.addBookToList(book));
   }
-
+   //Method 2 : To Add a Book to List
   static addBookToList(book){
       const list = document.querySelector("#book-list");
       
@@ -27,11 +28,14 @@ class UI {
     
       list.appendChild(row); 
   }
+
+  //Method 3 : To Delte a Book
   static deleteBook(el){
       if(el.classList.contains("delete")){
           el.parentElement.parentElement.remove();
       }
   }
+    //Method 4 : To Show Alert Messages after Deletion/Addition
    static showAlert(message, className){
        const div = document.createElement('div');
        div.className = `alert alert-${className}`;
@@ -43,6 +47,7 @@ class UI {
       setTimeout(()=> document.querySelector(".alert").remove(), 1500);
    }
 
+   //Method 5 : To Clear Form Input Fields after Entry
   static clearFields(){
       document.querySelector("#title").value = "";
       document.querySelector("#author").value = "";
@@ -52,6 +57,8 @@ class UI {
 
 //Store Class : Handles Storage
 class Store{
+
+    //Method 1 : To Get All Books From Local Storage
     static getBooks(){
       let books;
       if(localStorage.getItem("books")=== null){
@@ -61,14 +68,15 @@ class Store{
       }
       return books;
     }
-
+    // Method 2 : To Add Book To Local Storage
     static addBook(book){
          const books = Store.getBooks();
          books.push(book);
 
          localStorage.setItem('books',JSON.stringify(books));
     }
-
+    
+    //Method 3 : To Remove A Book From Local Storage
     static removeBook(isbn){
          const books = Store.getBooks();
          books.forEach((book, index) =>{
@@ -84,6 +92,7 @@ class Store{
 
 //Event :Display Books
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
+
 //Event : Add a book
 document.querySelector("#book-form").addEventListener("submit", (e) => {
     //prevent actual submit
